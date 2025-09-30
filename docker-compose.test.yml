@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tourism_test
+    ports:
+      - "55432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tourism_test"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
+
+  tests:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: "test"
+      PORT: "3000"
+      CORS_ORIGIN: "http://localhost:3000"
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/tourism_test"
+      DB_HOST: "db"
+    command: sh -c "npx prisma migrate deploy && npm test"

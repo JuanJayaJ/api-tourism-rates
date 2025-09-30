@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Tourism API Automated CRUD",
+    "_postman_id": "crud-collection-1234",
+    "description": "Automated test flow for suppliers CRUD in Tourism API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Supplier",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"TourismCo\",\n  \"country\": \"Australia\"\n}"
+        },
+        "url": { "raw": "http://127.0.0.1:3000/suppliers", "protocol": "http", "host": ["127.0.0.1"], "port": "3000", "path": ["suppliers"] }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Created supplier\", function () {",
+              "    pm.response.to.have.status(201);",
+              "    const json = pm.response.json();",
+              "    pm.environment.set(\"supplierId\", json.id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get All Suppliers",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://127.0.0.1:3000/suppliers", "protocol": "http", "host": ["127.0.0.1"], "port": "3000", "path": ["suppliers"] }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Supplier by ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:3000/suppliers/{{supplierId}}",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "3000",
+          "path": ["suppliers", "{{supplierId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Supplier",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"TourismCo Updated\",\n  \"country\": \"New Zealand\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:3000/suppliers/{{supplierId}}",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "3000",
+          "path": ["suppliers", "{{supplierId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Supplier",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://127.0.0.1:3000/suppliers/{{supplierId}}",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "3000",
+          "path": ["suppliers", "{{supplierId}}"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

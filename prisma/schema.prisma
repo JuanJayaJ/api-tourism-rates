@@ -1,0 +1,31 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Supplier {
+  id        String        @id @default(uuid())
+  name      String
+  country   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  rates     TourismRate[] // 👈 relation
+}
+
+model TourismRate {
+  id          String   @id @default(uuid())
+  supplierId  String
+  description String
+  price       Float
+  currency    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+}
