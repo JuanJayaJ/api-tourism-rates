@@ -1,11 +1,11 @@
-# 🏝️ Tourism Rates API
+# Tourism Rates API
 
 A production-ready backend API for managing tourism suppliers and rates.  
 Built with **Node.js, Express, TypeScript, Prisma, PostgreSQL, Docker, Jest**.
 
 ---
 
-## 🚀 Features
+## Features
 - CRUD for **Suppliers** and **Rates**
 - Input validation with **Zod**
 - Centralized error handling & logging (Winston)
@@ -17,7 +17,7 @@ Built with **Node.js, Express, TypeScript, Prisma, PostgreSQL, Docker, Jest**.
 
 ---
 
-## 📦 Getting Started
+## Getting Started
 
 ### Clone & setup
 ```bash
