@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db:
-    image: postgres:latest
+    image: postgres:16
     container_name: tourism-db
     environment:
       POSTGRES_USER: postgres
@@ -9,18 +9,28 @@ services:
       POSTGRES_DB: tourism
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tourism"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
     networks:
       - tourism-net
 
   api:
     build: .
     container_name: api-tourism
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: "3000"
+      CORS_ORIGIN: "http://localhost:3000"
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/tourism"
+      DB_HOST: "db"
+      NODE_ENV: "production"
     ports:
       - "3000:3000"
-    env_file:
-      - .env
-    depends_on:
-      - db
     networks:
       - tourism-net
 

@@ -24,4 +24,6 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma/
 
 ENV NODE_ENV=production
 EXPOSE 3000
-CMD ["node", "dist/server.js"]
+COPY --from=builder /app/docker/entrypoint.sh ./docker/entrypoint.sh
+CMD ["sh", "docker/entrypoint.sh"]
+
