@@ -15,7 +15,7 @@ RUN npm run build
 FROM node:20-alpine
 WORKDIR /app
 
-# Copy artifacts from builder
+# Copy build artifacts from builder
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
@@ -24,6 +24,10 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma/
 
 ENV NODE_ENV=production
 EXPOSE 3000
-COPY --from=builder /app/docker/entrypoint.sh ./docker/entrypoint.sh
-CMD ["sh", "docker/entrypoint.sh"]
 
+# Copy entrypoint
+COPY --from=builder /app/docker/entrypoint.sh ./docker/entrypoint.sh
+RUN chmod +x ./docker/entrypoint.sh
+
+# Use ENTRYPOINT instead of CMD
+ENTRYPOINT ["./docker/entrypoint.sh"]

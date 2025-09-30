@@ -1,0 +1,28 @@
+### Health check
+GET http://localhost:3000/healthz
+
+### Create supplier
+POST http://localhost:3000/suppliers
+Content-Type: application/json
+
+{
+  "name": "TourismCo",
+  "country": "Australia"
+}
+
+### Get all suppliers
+GET http://localhost:3000/suppliers
+
+### Get supplier by ID
+GET http://localhost:3000/suppliers/9833c89b-e43a-425d-bee8-aeb24da144ce
+
+### Create rate
+POST http://localhost:3000/rates
+Content-Type: application/json
+
+{
+  "supplierId": "9833c89b-e43a-425d-bee8-aeb24da144ce",
+  "description": "Hotel room per night",
+  "price": 150,
+  "currency": "AUD"
+}

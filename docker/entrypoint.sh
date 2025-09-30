@@ -1,14 +1,15 @@
-#!/usr/bin/env sh
+#!/bin/sh
 set -e
 
-# Wait until DB is ready
-until nc -z "$DB_HOST" 5432; do
-  echo "⏳ waiting for database at $DB_HOST:5432..."
+echo "⏳ Waiting for database at $DATABASE_URL..."
+until nc -z db 5432; do
+  echo "⏳ waiting for database at db:5432..."
   sleep 2
 done
+echo "✅ Database is up!"
 
-echo "✅ database is up, running migrations..."
-npx prisma migrate deploy --schema=prisma/schema.prisma
+echo "📦 Running migrations..."
+npx prisma migrate deploy
 
-echo "🚀 starting server..."
-node dist/server.js
+echo "🚀 Starting server..."
+exec node dist/server.js
