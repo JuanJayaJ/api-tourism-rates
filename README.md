@@ -17,8 +17,6 @@ Built with **Node.js, Express, TypeScript, Prisma, PostgreSQL, Docker, Jest**.
 
 ---
 
-## Getting Started
-
 ### Clone & setup
 ```bash
 git clone https://github.com/JuanJayaJ/api-tourism-rates.git
