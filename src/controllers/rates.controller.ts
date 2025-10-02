@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as rateService from "../services/rates.service";
 import { success, created, notFound } from "../utils/response";
 
-// ✅ GET all rates (with pagination + filters)
+// GET all rates (with pagination + filters)
 export async function getRates(req: Request, res: Response, next: NextFunction) {
   try {
     const page = parseInt(req.query.page as string) || 1;
@@ -20,7 +20,7 @@ export async function getRates(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-// ✅ GET single rate by ID
+// GET single rate by ID
 export async function getRate(req: Request, res: Response, next: NextFunction) {
   try {
     const rate = await rateService.getRateById(req.params.id);
@@ -31,7 +31,7 @@ export async function getRate(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-// ✅ CREATE rate
+// CREATE rate
 export async function createRate(req: Request, res: Response, next: NextFunction) {
   try {
     const { supplierId, description, price, currency } = req.body;
@@ -42,7 +42,7 @@ export async function createRate(req: Request, res: Response, next: NextFunction
   }
 }
 
-// ✅ UPDATE rate
+// UPDATE rate
 export async function updateRate(req: Request, res: Response, next: NextFunction) {
   try {
     const rate = await rateService.updateRate(req.params.id, req.body);
@@ -52,7 +52,7 @@ export async function updateRate(req: Request, res: Response, next: NextFunction
   }
 }
 
-// ✅ DELETE rate
+// DELETE rate
 export async function deleteRate(req: Request, res: Response, next: NextFunction) {
   try {
     await rateService.deleteRate(req.params.id);
